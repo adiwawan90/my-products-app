@@ -81,7 +81,7 @@ const ProductTable = ({ data }: { data: any[] }) => {
             className="w-16 h-16"
             onError={(e) => {
               (e.target as HTMLImageElement).src =
-                "https://api.escuelajs.co/api/v1/files/4ff10.png";
+                "https://via.placeholder.com/640x360";
             }}
             width={"36px"}
             height={"36px"}
@@ -271,7 +271,7 @@ const FormModalUpdate: React.FC<FormModalUpdateProps> = ({
     }
   }, [item]);
 
-  const { mutate: updateProduct, isLoading, error } = useUpdateProduct();
+  const { mutate: updateProduct, error } = useUpdateProduct();
 
   const onSubmit = async (data: ProductFormData) => {
     try {
@@ -288,7 +288,6 @@ const FormModalUpdate: React.FC<FormModalUpdateProps> = ({
       open={isModalOpen}
       onOk={handleSubmit(onSubmit)}
       onCancel={handleCancel}
-      confirmLoading={isLoading}
     >
       <div className="">
         <form

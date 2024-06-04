@@ -18,7 +18,7 @@ export interface Category {
 }
 
 export interface UpdateProductRequest {
-  id: number;
+  id: number | undefined;
   title: string;
   price: number;
   description: string;

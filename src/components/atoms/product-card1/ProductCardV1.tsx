@@ -21,10 +21,6 @@ const ProductCardV1: React.FC<ProductCardV1Props> = ({ item, onItemClick }) => {
   } = item;
 
   const ImageWithFallback = ({ images }: { images: string[] }) => {
-    const handleImageError = (event: { target: { src: string } }) => {
-      event.target.src = "https://via.placeholder.com/640x360"; // Fallback image URL
-    };
-
     return (
       <img
         className="rounded-t-lg object-cover h-full w-full"
@@ -34,7 +30,10 @@ const ProductCardV1: React.FC<ProductCardV1Props> = ({ item, onItemClick }) => {
             : "https://via.placeholder.com/640x360"
         }
         alt="sport foot wears"
-        onError={handleImageError}
+        onError={(e) => {
+          (e.target as HTMLImageElement).src =
+            "https://via.placeholder.com/640x360";
+        }}
       />
     );
   };

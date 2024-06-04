@@ -10,7 +10,7 @@ import Select from "@/components/atoms/select/Select";
 import { Button, Space } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 
-const productSchema = z.object({
+const ProductSchema = z.object({
   title: z.string().nonempty("Title is required"),
   price: z.number().positive("Price must be a positive number"),
   description: z.string().nonempty("Description is required"),
@@ -20,7 +20,7 @@ const productSchema = z.object({
     .min(1, "At least one image is required"),
 });
 
-type ProductFormData = z.infer<typeof productSchema>;
+type ProductFormData = z.infer<typeof ProductSchema>;
 
 const ProductForm: React.FC = () => {
   const {
@@ -29,8 +29,8 @@ const ProductForm: React.FC = () => {
     handleSubmit,
     control,
     formState: { errors, isSubmitting, isValid, isDirty },
-  } = useForm<ProductFormData>({
-    resolver: zodResolver(productSchema, {}, { raw: true }),
+  } = useForm<z.infer<typeof ProductSchema>>({
+    resolver: zodResolver(ProductSchema, {}, { raw: true }),
     defaultValues: {
       title: "",
       price: 0,
@@ -41,11 +41,12 @@ const ProductForm: React.FC = () => {
   });
 
   const { fields, append, remove } = useFieldArray({
-    control,
-    name: "images",
+    control: control,
+    // @ts-ignore
+    name: "images", // eslint-disable-line
   });
 
-  const { mutate: createProduct, isLoading, error } = useCreateProduct();
+  const { mutate: createProduct, error } = useCreateProduct();
 
   const onSubmit = async (data: ProductFormData) => {
     try {
