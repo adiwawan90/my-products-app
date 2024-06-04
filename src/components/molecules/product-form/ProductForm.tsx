@@ -7,8 +7,9 @@ import { useCreateProduct } from "@/utils/hook/useProducts";
 import { useForm, useFieldArray } from "react-hook-form";
 import Input from "@/components/atoms/input/Input";
 import Select from "@/components/atoms/select/Select";
-import { Button, Space } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
+import TextArea from "@/components/atoms/textarea/TextareaInput";
+import useGetCategories from "@/utils/hook/useGetCategories";
 
 const ProductSchema = z.object({
   title: z.string().nonempty("Title is required"),
@@ -47,6 +48,7 @@ const ProductForm: React.FC = () => {
   });
 
   const { mutate: createProduct, error } = useCreateProduct();
+  const { categoryOption } = useGetCategories();
 
   const onSubmit = async (data: ProductFormData) => {
     try {
@@ -74,18 +76,13 @@ const ProductForm: React.FC = () => {
         <div className="grid md:grid-cols-2 sm:grid-cols-1 gap-3">
           <Select
             label="Category"
-            options={[
-              { label: "Furniture", value: 3 },
-              { label: "Shoes", value: 2 },
-            ]}
-            // {...register("categoryId")}
+            options={categoryOption}
             error={errors.categoryId?.message}
             onChange={(v) => setValue("categoryId", Number(v.target.value))}
             required
           />
           <Input
             label="Price"
-            // {...register("price")}
             error={errors.price?.message}
             type="number"
             onChange={(v) => setValue("price", Number(v.target.value))}
@@ -129,17 +126,18 @@ const ProductForm: React.FC = () => {
         >
           <DeleteOutlined /> Add URL
         </button>
-
-        <Input
+        <TextArea
           label="Description"
           {...register("description")}
+          // @ts-ignore
           error={errors.description?.message}
+          name="description"
           required
         />
         <button
           disabled={isValid && !isDirty}
           type="submit"
-          className="col-span-full px-6 py-3 uppercase font-bold bg-green-500 hover:bg-green-400 rounded-sm transition-all shadow-md"
+          className="col-span-full px-6 py-3 uppercase font-bold bg-green-500 hover:bg-green-400 rounded-lg transition-all shadow-md"
         >
           {isSubmitting ? "Submitting..." : "Submit"}
         </button>

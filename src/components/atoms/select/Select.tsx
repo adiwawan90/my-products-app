@@ -1,5 +1,6 @@
 "use client";
 
+import { useTheme } from "next-themes";
 import { SelectHTMLAttributes, forwardRef } from "react";
 
 interface Props extends SelectHTMLAttributes<HTMLSelectElement> {
@@ -12,6 +13,7 @@ const Select = forwardRef<HTMLSelectElement, Props>(function Select(
   { name, error, label, required, className, options, ...rest },
   ref,
 ) {
+  const { theme } = useTheme();
   return (
     <fieldset className={`flex flex-col ${className ? className : ""}`}>
       <label htmlFor={name} className="text-sm font-semibold mb-1">
@@ -22,7 +24,7 @@ const Select = forwardRef<HTMLSelectElement, Props>(function Select(
         id={name}
         name={name}
         {...rest}
-        className="ring-1 ring-gray-500 rounded-sm p-3 shadow-md  h-11"
+        className={`ring-1 ring-gray-500 rounded-sm p-3 shadow-md h-11 ${theme === "dark" ? "bg-black-100 text-white " : "bg-white text-black-100"}`}
       >
         <option key="" value="">
           Choose an option...

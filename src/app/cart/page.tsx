@@ -1,11 +1,13 @@
 "use client";
 import { removeFromCart, updateQuantity } from "@/redux/slices/cartSlice";
 import { RootState, useAppSelector, useAppDispatch } from "@/redux/store";
+import { useTheme } from "next-themes";
 import React from "react";
 
 const CartPage: React.FC = () => {
   const cartItems = useAppSelector((state: RootState) => state.cart.items);
   const dispatch = useAppDispatch();
+  const { theme } = useTheme();
 
   const handleRemove = (id: number) => {
     dispatch(removeFromCart(id));
@@ -52,7 +54,7 @@ const CartPage: React.FC = () => {
                     onChange={(e) =>
                       handleQuantityChange(item?.id, Number(e.target.value))
                     }
-                    className="w-16 p-2 border rounded"
+                    className={`w-16 p-2 border rounded ${theme === "dark" ? "bg-black-100 text-white " : "bg-white text-black-100"}`}
                   />
                   <button
                     onClick={() => handleRemove(item?.id)}

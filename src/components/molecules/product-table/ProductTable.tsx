@@ -6,15 +6,16 @@ import { useProducts } from "@/utils/hook/useProducts";
 import ProductTable from "../../atoms/table/ProductTable";
 import { PlusOutlined } from "@ant-design/icons";
 import Link from "next/link";
+import { useTheme } from "next-themes";
 
 const ProductTables: React.FC = () => {
   const [page, setPage] = useState<number>(1);
   const [offset, setOffset] = useState<number>(0);
   const [search, setSearch] = useState<string>("");
   const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+  const { theme } = useTheme();
 
   const limit = 5;
-  // const offset = (page - 1) * limit;
   const { data, error, isLoading } = useProducts(
     offset,
     limit,
@@ -45,7 +46,7 @@ const ProductTables: React.FC = () => {
             placeholder="Search by title"
             value={search}
             onChange={onChange}
-            className="border p-2 rounded mr-4"
+            className={`border p-2 rounded mr-4 ${theme === "dark" ? "bg-black-100 text-white " : "bg-white text-black-100"}`}
           />
           <button
             onClick={handleSearch}
@@ -59,12 +60,8 @@ const ProductTables: React.FC = () => {
             href={"/create-product"}
             className="text-white bg-[#4285F4] hover:bg-[#4285F4]/90 focus:ring-4 focus:outline-none focus:ring-[#4285F4]/50 font-medium rounded-sm text-sm px-5 py-2.5 text-center inline-flex items-center dark:focus:ring-[#4285F4]/55 me-2 mb-2 gap-2"
           >
-            {/* <button
-            type="button"
-          > */}
             <PlusOutlined />
             Create Product
-            {/* </button> */}
           </Link>
         </div>
       </div>

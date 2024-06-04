@@ -7,7 +7,7 @@ import FooterComponent from "../molecules/footer/Footer";
 const { Content, Footer } = Layout;
 const Home: React.FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Layout>
+    <Layout className="min-h-screen">
       <Navbar />
       <Content
         style={{ padding: "0 48px", marginTop: "24px", marginBottom: "40px" }}

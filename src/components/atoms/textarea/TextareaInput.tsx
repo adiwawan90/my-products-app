@@ -1,3 +1,5 @@
+"use client";
+import { useTheme } from "next-themes";
 import { TextareaHTMLAttributes, forwardRef } from "react";
 
 interface Props extends TextareaHTMLAttributes<HTMLTextAreaElement> {
@@ -9,6 +11,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>(function TextArea(
   { name, error, label, required, className, ...rest },
   ref,
 ) {
+  const { theme } = useTheme();
   return (
     <fieldset className={`flex flex-col  ${className ? className : ""}`}>
       {label && (
@@ -21,7 +24,7 @@ const TextArea = forwardRef<HTMLTextAreaElement, Props>(function TextArea(
         id={name}
         name={name}
         {...rest}
-        className="ring-1 ring-gray-500 rounded-sm p-3 shadow-md w-full resize-none"
+        className={`ring-1 ring-gray-500 rounded-sm p-3 shadow-md w-full resize-none ${theme === "dark" ? "bg-black-100 text-white " : "bg-white text-black-100"}`}
       />
       {error && <span className="text-sm text-red-600">{error}</span>}
     </fieldset>
