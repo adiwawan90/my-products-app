@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
+import StoreProvider from "@/redux/StoreProvider";
+
+import { ThemeProvider } from "next-themes";
+
+import QueryClientContextProvider from "@/redux/QueryClientContextProvider";
+import Layout from "@/components/layout/Layout";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -16,7 +22,20 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <StoreProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <QueryClientContextProvider>
+              <Layout>{children}</Layout>
+            </QueryClientContextProvider>
+          </ThemeProvider>
+        </StoreProvider>
+      </body>
     </html>
   );
 }

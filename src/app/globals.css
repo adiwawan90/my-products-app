@@ -26,8 +26,17 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+[data-theme="dark"] body {
+  background-color: #001529;
+  color: #fff;
+}
+
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.ant-menu-item-selected {
+  background-color: transparent !important;
 }

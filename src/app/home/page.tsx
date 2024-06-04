@@ -7,7 +7,7 @@ const Home = () => {
   return (
     <section>
       <CarouselComp />
-      <div className="w-full h-auto mt-6 ">
+      <div className="w-full h-auto mt-6 mb-10">
         <div className="p-2 mt-5 mb-5">
           <p className="font-bold text-xl">Category</p>
         </div>
